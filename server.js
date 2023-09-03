@@ -3,6 +3,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+//middleware
+app.use(express.json());
+
 //routes
 app.get('/', (req, res) => {
   res.send('Hello Node API!');
@@ -12,6 +15,12 @@ app.get('/blog', (req, res) => {
   res.send('Hello from Blog! Hooray!!');
 });
 
+app.post('/product', (req, res) => {
+  console.log(req.body);
+  res.send(req.body);
+});
+
+//db
 mongoose.set("strictQuery", false);
 
 mongoose
