@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Product = require('./models/productModels');
 const app = express();
 
-//middleware
+//middleware - specify json middleware and form data middleware
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
@@ -13,10 +13,12 @@ app.get('/', (req, res) => {
   res.send('Hello Node API!');
 });
 
+//routes - test route
 app.get('/blog', (req, res) => {
   res.send('Hello from Blog! Hooray!!');
 });
 
+//routes - find all product
 app.get('/products', async (req, res) => {
   try {
     const products = await Product.find({});
@@ -28,6 +30,7 @@ app.get('/products', async (req, res) => {
   }
 });
 
+//routes - find a single product
 app.get('/products/:id', async (req, res) => {
   try {
     const {id} = req.params;
@@ -40,6 +43,7 @@ app.get('/products/:id', async (req, res) => {
   }
 });
 
+//routes - update a single product
 app.put('/products/:id', async (req, res) => {
   try {
     const {id} = req.params;
@@ -57,6 +61,7 @@ app.put('/products/:id', async (req, res) => {
   }
 });
 
+//routes - delete a single product
 app.delete('/products/:id', async (req, res) => {
   try {
     const {id} = req.params;
@@ -72,6 +77,7 @@ app.delete('/products/:id', async (req, res) => {
   }
 });
 
+//routes - create a product
 app.post('/products', async (req, res) => {
   try {
     const product = await Product.create(req.body);
