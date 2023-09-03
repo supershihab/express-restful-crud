@@ -6,6 +6,7 @@ const app = express();
 
 //middleware
 app.use(express.json());
+app.use(express.urlencoded({extended: false}));
 
 //routes
 app.get('/', (req, res) => {
@@ -36,6 +37,23 @@ app.get('/products/:id', async (req, res) => {
   } catch (error) {
     console.log(error.message);
     res.status(500).json({message: error.message});
+  }
+});
+
+app.put('/products/:id', async (req, res) => {
+  try {
+    const {id} = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body);
+    //can't find any product in database
+    if (!product) {
+      res.status(404).json({message: `Can not find any product by ID ${id}.`});
+    }
+    const updatedProduct = await Product.findById(id);
+    res.status(200).json(updatedProduct);
+
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json(error.message);
   }
 });
 
