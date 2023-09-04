@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const productRoute = require('./routes/productRoute');
+const errorMiddleware = require('./middleware/errorMiddleware');
 
 const app = express();
 
@@ -16,7 +17,10 @@ app.use(express.urlencoded({extended: false}));
 //routes
 
 app.use('/api/products', productRoute);
+app.use(errorMiddleware);
+
 app.get('/', (req, res) => {
+  throw new Error('Fake Error');
   res.send('Hello Node API!');
 });
 
@@ -24,7 +28,6 @@ app.get('/', (req, res) => {
 app.get('/blog', (req, res) => {
   res.send('Hello from Blog! Hooray!!');
 });
-
 
 
 //db
