@@ -20,7 +20,8 @@ app.use('/api/products', productRoute);
 app.use(errorMiddleware);
 
 app.get('/', (req, res) => {
-  throw new Error('Fake Error');
+  //checking out the error middleware
+  // throw new Error('Fake Error');
   res.send('Hello Node API!');
 });
 
